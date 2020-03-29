@@ -1,0 +1,22 @@
+{
+  "players": [
+    {
+      "roomName": "Office",
+      "volume": 5
+    },
+    {
+      "roomName": "Master Bedroom",
+      "volume": 75
+    },
+    {
+      "roomName": "Living Room",
+      "volume": 50
+    }
+  ],
+  "playMode": {
+    "repeat": false,
+    "crossfade": false
+  },
+  "pauseOthers": false,
+  "favorite": "short-azan"
+}
