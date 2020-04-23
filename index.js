@@ -10,7 +10,6 @@ const fs = require('fs');
 
 setInterval(function () {
     // checkPrayerAPI();
-    downloadPrayerAPI()
     isItPrayerTime();
 }, 60 * 1000);
 
@@ -47,6 +46,7 @@ function downloadPrayerAPI() {
 }
 
 function isItPrayerTime() {
+    downloadPrayerAPI()
     //Obtain Output file Data
     let rawdata = fs.readFileSync('output.json');
     let todaysPrayerTimes = JSON.parse(rawdata);
