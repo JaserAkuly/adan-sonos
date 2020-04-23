@@ -4,14 +4,12 @@ const axios = require('axios')
 var https = require("https");
 const fs = require('fs');
 const path = 'output.json'
+var schedule = require('node-schedule');
 
-// Download Latest Time 
+schedule.scheduleJob('0 0 * * *', () => { downloadPrayerAPI() }) // run everyday at midnight
 
+schedule.scheduleJob('*/1 * * * *', () => { isItPrayerTime() }) // run everyday at minute
 
-setInterval(function () {
-    // checkPrayerAPI();
-    isItPrayerTime();
-}, 60 * 1000);
 
 // Daily Prayer Download (This needs to run once a day, every night at 12:01am to take the new days timings)
 function downloadPrayerAPI() {
@@ -35,7 +33,6 @@ function downloadPrayerAPI() {
 
         res.on("end", function () {
             var body = Buffer.concat(chunks);
-            deletePrayerTimeFile()
             saveAzaanTimes(body)
         });
 
@@ -45,7 +42,6 @@ function downloadPrayerAPI() {
 }
 
 function isItPrayerTime() {
-    downloadPrayerAPI()
     //Obtain Output file Data
     let rawdata = fs.readFileSync('output.json');
     let todaysPrayerTimes = JSON.parse(rawdata);
