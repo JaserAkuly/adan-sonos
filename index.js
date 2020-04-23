@@ -3,7 +3,7 @@ var http = require("https");
 const axios = require('axios')
 var https = require("https");
 const fs = require('fs');
-// const path = 'output.json'
+const path = 'output.json'
 
 // Download Latest Time 
 
@@ -35,10 +35,9 @@ function downloadPrayerAPI() {
 
         res.on("end", function () {
             var body = Buffer.concat(chunks);
-            // deletePrayerTimeFile()
+            deletePrayerTimeFile()
             saveAzaanTimes(body)
         });
-
 
     });
 
@@ -66,40 +65,40 @@ function isItPrayerTime() {
     console.log(currentTime)
 
     compareTimeToPrayer();
-
-    function compareTimeToPrayer() {
-        if (currentTime == todaysPrayerTimes.data.timings.Fajr) {
-            console.log("Its Fajr Time")
-            callForPrayer()
-        } else if (currentTime == todaysPrayerTimes.data.timings.Dhuhr) {
-            console.log("Its Dhuhr Time")
-            callForPrayer()
-        } else if (currentTime == todaysPrayerTimes.data.timings.Asr) {
-            console.log("Its Asr Time")
-            callForPrayer()
-        } else if (currentTime == todaysPrayerTimes.data.timings.Maghrib) {
-            console.log("Its Maghrib Time")
-            callForPrayer()
-        } else if (currentTime == todaysPrayerTimes.data.timings.Isha) {
-            console.log("Its Isha Time")
-            callForPrayer()
-        } else {
-            console.log("It's not Prayer Time Yet.")
-        }
-
-    }
 }
 
-// function deletePrayerTimeFile() {
-//     fs.unlink(path, (err) => {
-//         if (err) {
-//           console.error(err)
-//           return
-//         }
-//         console.log("JSON file has been deleted.");
-//         //file removed
-//       })
-// }
+function deletePrayerTimeFile() {
+    fs.unlink(path, (err) => {
+        if (err) {
+          console.error(err)
+          return
+        }
+        console.log("JSON file has been deleted.");
+        //file removed
+      })
+}
+
+function compareTimeToPrayer() {
+    if (currentTime == todaysPrayerTimes.data.timings.Fajr) {
+        console.log("Its Fajr Time")
+        callForPrayer()
+    } else if (currentTime == todaysPrayerTimes.data.timings.Dhuhr) {
+        console.log("Its Dhuhr Time")
+        callForPrayer()
+    } else if (currentTime == todaysPrayerTimes.data.timings.Asr) {
+        console.log("Its Asr Time")
+        callForPrayer()
+    } else if (currentTime == todaysPrayerTimes.data.timings.Maghrib) {
+        console.log("Its Maghrib Time")
+        callForPrayer()
+    } else if (currentTime == todaysPrayerTimes.data.timings.Isha) {
+        console.log("Its Isha Time")
+        callForPrayer()
+    } else {
+        console.log("It's not Prayer Time Yet.")
+    }
+
+}
 
 function saveAzaanTimes(body) {
     // parse json
