@@ -95,7 +95,7 @@ function deletePrayerTimeFile() {
           console.error(err)
           return
         }
-      
+        console.log("JSON file has been deleted.");
         //file removed
       })
 }
