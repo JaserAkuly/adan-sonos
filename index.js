@@ -3,13 +3,14 @@ var http = require("https");
 const axios = require('axios')
 var https = require("https");
 const fs = require('fs');
-const path = 'output.json'
+// const path = 'output.json'
 
 // Download Latest Time 
-downloadPrayerAPI()
+
 
 setInterval(function () {
     // checkPrayerAPI();
+    downloadPrayerAPI()
     isItPrayerTime();
 }, 60 * 1000);
 
@@ -35,7 +36,7 @@ function downloadPrayerAPI() {
 
         res.on("end", function () {
             var body = Buffer.concat(chunks);
-            deletePrayerTimeFile()
+            // deletePrayerTimeFile()
             saveAzaanTimes(body)
         });
 
@@ -89,16 +90,16 @@ function isItPrayerTime() {
     }
 }
 
-function deletePrayerTimeFile() {
-    fs.unlink(path, (err) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-        console.log("JSON file has been deleted.");
-        //file removed
-      })
-}
+// function deletePrayerTimeFile() {
+//     fs.unlink(path, (err) => {
+//         if (err) {
+//           console.error(err)
+//           return
+//         }
+//         console.log("JSON file has been deleted.");
+//         //file removed
+//       })
+// }
 
 function saveAzaanTimes(body) {
     // parse json
