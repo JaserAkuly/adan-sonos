@@ -2,15 +2,15 @@
   "players": [
     {
       "roomName": "Office",
-      "volume": 5
+      "volume": 10
     },
     {
       "roomName": "Master Bedroom",
-      "volume": 75
+      "volume": 85
     },
     {
       "roomName": "Living Room",
-      "volume": 50
+      "volume": 55
     }
   ],
   "playMode": {
