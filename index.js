@@ -51,6 +51,7 @@ function isItPrayerTime() {
 
     // current hours
     let hours = today.getHours();
+    hours = ("0" + hours).slice(-2);
 
     // current minutes
     let minutes = today.getMinutes();
