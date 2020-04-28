@@ -17,7 +17,7 @@ function downloadPrayerAPI() {
         "method": "GET",
         "hostname": "aladhan.p.rapidapi.com",
         "port": null,
-        "path": "/timingsByCity?state=Tx&method=2&city=Dallas&country=US",
+        "path": "/timingsByCity?state=Tx&method=2&city=Dallas&country=US&tune=0,0,0,0,0,3,0,0,0",
         "headers": {
             "x-rapidapi-host": "aladhan.p.rapidapi.com",
             "x-rapidapi-key": "315bc4bd0emshd573c11770e6614p15e832jsn4604ca1ad8df"
@@ -85,16 +85,6 @@ function isItPrayerTime() {
     }
 }
 
-function deletePrayerTimeFile() {
-    fs.unlink(path, (err) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-        console.log("JSON file has been deleted.");
-        //file removed
-      })
-}
 
 function saveAzaanTimes(body) {
     // parse json
@@ -115,16 +105,6 @@ function saveAzaanTimes(body) {
 
 function callForPrayer() {
     axios.get('http://localhost:5005/preset/example', {})
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-}
-
-function pauseSonos() {
-    axios.get('http://localhost:5005/pauseall', {})
         .then((res) => {
             console.log(res)
         })
