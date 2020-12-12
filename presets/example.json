@@ -5,12 +5,12 @@
       "volume": 10
     },
     {
-      "roomName": "Master Bedroom",
-      "volume": 85
+      "roomName": "Game Room",
+      "volume": 95
     },
     {
       "roomName": "Living Room",
-      "volume": 55
+      "volume": 35
     }
   ],
   "playMode": {

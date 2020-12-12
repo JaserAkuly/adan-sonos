@@ -17,7 +17,7 @@ function downloadPrayerAPI() {
         "method": "GET",
         "hostname": "aladhan.p.rapidapi.com",
         "port": null,
-        "path": "/timingsByCity?state=Tx&method=2&city=Dallas&country=US&tune=0,0,0,0,0,3,0,0,0",
+        "path": "/timingsByCity?state=Tx&method=2&city=Dallas&country=US&tune=0,-20,0,0,0,3,0,0,0",
         "headers": {
             "x-rapidapi-host": "aladhan.p.rapidapi.com",
             "x-rapidapi-key": "315bc4bd0emshd573c11770e6614p15e832jsn4604ca1ad8df"
