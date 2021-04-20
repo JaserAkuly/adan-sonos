@@ -1,44 +1,59 @@
-'use strict';
-var http = require("https");
-const axios = require('axios')
-var https = require("https");
+const http = require("https");
 const fs = require('fs');
-const path = 'output.json'
 var schedule = require('node-schedule');
 
 schedule.scheduleJob('0 0 * * *', () => { downloadPrayerAPI() }) // run everyday at midnight
 
+// schedule.scheduleJob('*/1 * * * *', () => { downloadPrayerAPI() }) // run everyday at minute
 schedule.scheduleJob('*/1 * * * *', () => { isItPrayerTime() }) // run everyday at minute
 
 
-// Daily Prayer Download (This needs to run once a day, every night at 12:01am to take the new days timings)
 function downloadPrayerAPI() {
-    var options = {
+    const options = {
         "method": "GET",
         "hostname": "aladhan.p.rapidapi.com",
         "port": null,
-        "path": "/timingsByCity?state=Tx&method=2&city=Dallas&country=US&tune=0,-20,0,0,0,3,0,0,0",
+        "path": "/timingsByCity?city=Dallas&country=US&tune=0,-20,0,4,1,4,0,5,0",
         "headers": {
+            "x-rapidapi-key": "315bc4bd0emshd573c11770e6614p15e832jsn4604ca1ad8df",
             "x-rapidapi-host": "aladhan.p.rapidapi.com",
-            "x-rapidapi-key": "315bc4bd0emshd573c11770e6614p15e832jsn4604ca1ad8df"
+            "useQueryString": true
         }
     };
-
-    var req = http.request(options, function (res) {
-        var chunks = [];
-
+    
+    const req = http.request(options, function (res) {
+        const chunks = [];
+    
         res.on("data", function (chunk) {
             chunks.push(chunk);
         });
-
+    
         res.on("end", function () {
-            var body = Buffer.concat(chunks);
+            const body = Buffer.concat(chunks);
+            console.log(body.toString());
             saveAzaanTimes(body)
+            console.log(body)
         });
-
     });
-
+    
     req.end();
+}
+
+function saveAzaanTimes(body) {
+    // parse json
+    var jsonObj = JSON.parse(body);
+
+    // stringify JSON Object
+    var jsonContent = JSON.stringify(jsonObj);
+
+    fs.writeFile("output.json", jsonContent, 'utf8', function (err) {
+        if (err) {
+            console.log("An error occured while writing JSON Object to File.");
+            return console.log(err);
+        }
+
+        console.log("JSON file has been saved.");
+    });
 }
 
 function isItPrayerTime() {
@@ -85,24 +100,6 @@ function isItPrayerTime() {
     }
 }
 
-
-function saveAzaanTimes(body) {
-    // parse json
-    var jsonObj = JSON.parse(body);
-
-    // stringify JSON Object
-    var jsonContent = JSON.stringify(jsonObj);
-
-    fs.writeFile("output.json", jsonContent, 'utf8', function (err) {
-        if (err) {
-            console.log("An error occured while writing JSON Object to File.");
-            return console.log(err);
-        }
-
-        console.log("JSON file has been saved.");
-    });
-}
-
 function callForPrayer() {
     axios.get('http://localhost:5005/preset/example', {})
         .then((res) => {
@@ -112,7 +109,3 @@ function callForPrayer() {
             console.error(error)
         })
 }
-
-
-
-
