@@ -7,18 +7,12 @@ schedule.scheduleJob('0 0 * * *', () => { downloadPrayerAPI() }) // run everyday
 // schedule.scheduleJob('*/1 * * * *', () => { downloadPrayerAPI() }) // run everyday at minute
 schedule.scheduleJob('*/1 * * * *', () => { isItPrayerTime() }) // run everyday at minute
 
-
 function downloadPrayerAPI() {
     const options = {
         "method": "GET",
-        "hostname": "aladhan.p.rapidapi.com",
+        "hostname": "api.aladhan.com",
         "port": null,
-        "path": "/timingsByCity?city=Dallas&country=US&tune=0,-20,0,4,1,4,0,5,0",
-        "headers": {
-            "x-rapidapi-key": "315bc4bd0emshd573c11770e6614p15e832jsn4604ca1ad8df",
-            "x-rapidapi-host": "aladhan.p.rapidapi.com",
-            "useQueryString": true
-        }
+        "path": "/v1/timingsByCity?city=Dallas&country=US&tune=0,-20,0,4,1,4,0,5,0",
     };
     
     const req = http.request(options, function (res) {

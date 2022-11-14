@@ -2,11 +2,11 @@
   "players": [
     {
       "roomName": "Office",
-      "volume": 10
+      "volume": 35
     },
     {
       "roomName": "Game Room",
-      "volume": 95
+      "volume": 35
     },
     {
       "roomName": "Living Room",
@@ -17,6 +17,6 @@
     "repeat": false,
     "crossfade": false
   },
-  "pauseOthers": false,
+  "pauseOthers": true,
   "favorite": "short-azan"
 }
