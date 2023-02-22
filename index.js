@@ -3,9 +3,9 @@ const fs = require('fs');
 var schedule = require('node-schedule');
 const axios = require("axios");
 
-schedule.scheduleJob('0 0 * * *', () => { downloadPrayerAPI() }) // run everyday at midnight
+//schedule.scheduleJob('0 0 * * *', () => { downloadPrayerAPI() }) // run everyday at midnight
 
-// schedule.scheduleJob('*/1 * * * *', () => { downloadPrayerAPI() }) // run everyday at minute
+schedule.scheduleJob('*/1 * * * *', () => { downloadPrayerAPI() }) // run everyday at minute
 schedule.scheduleJob('*/1 * * * *', () => { isItPrayerTime() }) // run everyday at minute
 
 function downloadPrayerAPI() {
