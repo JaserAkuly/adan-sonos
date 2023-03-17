@@ -3,28 +3,28 @@
     "status": "OK",
     "data": {
         "timings": {
-            "Fajr": "05:35",
-            "Sunrise": "07:03",
-            "Dhuhr": "12:45",
-            "Asr": "15:53",
-            "Sunset": "18:19",
-            "Maghrib": "18:23",
-            "Isha": "19:32",
-            "Imsak": "05:45",
-            "Midnight": "00:41",
-            "Firstthird": "22:33",
-            "Lastthird": "02:48"
+            "Fajr": "06:29",
+            "Sunrise": "07:36",
+            "Dhuhr": "13:36",
+            "Asr": "17:01",
+            "Sunset": "19:36",
+            "Maghrib": "19:36",
+            "Isha": "20:43",
+            "Imsak": "06:19",
+            "Midnight": "01:36",
+            "Firstthird": "23:36",
+            "Lastthird": "03:36"
         },
         "date": {
-            "readable": "22 Feb 2023",
-            "timestamp": "1677070800",
+            "readable": "16 Mar 2023",
+            "timestamp": "1678968000",
             "hijri": {
-                "date": "01-08-1444",
+                "date": "23-08-1444",
                 "format": "DD-MM-YYYY",
-                "day": "01",
+                "day": "23",
                 "weekday": {
-                    "en": "Al Arba'a",
-                    "ar": "الاربعاء"
+                    "en": "Al Khamees",
+                    "ar": "الخميس"
                 },
                 "month": {
                     "number": 8,
@@ -39,15 +39,15 @@
                 "holidays": []
             },
             "gregorian": {
-                "date": "22-02-2023",
+                "date": "16-03-2023",
                 "format": "DD-MM-YYYY",
-                "day": "22",
+                "day": "16",
                 "weekday": {
-                    "en": "Wednesday"
+                    "en": "Thursday"
                 },
                 "month": {
-                    "number": 2,
-                    "en": "February"
+                    "number": 3,
+                    "en": "March"
                 },
                 "year": "2023",
                 "designation": {
@@ -77,13 +77,13 @@
             "school": "STANDARD",
             "offset": {
                 "Imsak": 0,
-                "Fajr": "-20",
+                "Fajr": 0,
                 "Sunrise": 0,
-                "Dhuhr": "4",
-                "Asr": "1",
-                "Maghrib": "4",
+                "Dhuhr": 0,
+                "Asr": 0,
+                "Maghrib": 0,
                 "Sunset": 0,
-                "Isha": "5",
+                "Isha": 0,
                 "Midnight": 0
             }
         }

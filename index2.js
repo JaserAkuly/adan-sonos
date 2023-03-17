@@ -4,29 +4,30 @@ const fs = require('fs');
 const schedule = require('node-schedule');
 const axios = require('axios');
 
-// Schedule tasks to run every minute
-schedule.scheduleJob('* * * * * *', downloadPrayerAPI);
+// This will schedule the job to run when the seconds and minutes fields are both 0, which corresponds to midnight.
+schedule.scheduleJob('0 0 * * *', downloadPrayerAPI);
+// schedule.scheduleJob('*/1 * * *', downloadPrayerAPI);
 schedule.scheduleJob('*/1 * * * *', isItPrayerTime);
 
 // Get daily prayer timings from an external API
 function downloadPrayerAPI() {
-    https.get('https://api.aladhan.com/v1/timingsByCity?city=Dallas&country=US&tune=0,-20,0,4,1,4,0,5,0', res => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (data.trim().length === 0) {
-          console.error('No data received from API');
-        } else {
-          saveAzaanTimes(JSON.parse(data));
-        }
-      });
+  axios.get('https://api.aladhan.com/v1/timingsByCity?city=Dallas&country=US')
+    .then(response => {
+      if (response.data) {
+        saveAzaanTimes(response.data);
+      } else {
+        console.error('No data received from API');
+      }
+    })
+    .catch(error => {
+      console.error('Error making request to API:', error);
     });
-  }
+}
 
 // Save daily prayer timings to a JSON file
 function saveAzaanTimes(prayerTimes) {
     console.log("saving function")
-  fs.writeFile('prayerTimes.json', JSON.stringify(prayerTimes), err => {
+  fs.writeFile('output.json', JSON.stringify(prayerTimes), err => {
     console.log("saving now..")
     if (err) console.error('Error writing file:', err);
     else console.log('Prayer times saved to file.');
@@ -43,11 +44,19 @@ function isItPrayerTime() {
   const time = `${now.getHours()}:${now.getMinutes()}`;
 
   // Check if it's time for any of the five daily prayers
-  if (time === prayerTimes.data.timings.Fajr) callForPrayer('Fajr');
-  else if (time === prayerTimes.data.timings.Dhuhr) callForPrayer('Dhuhr');
-  else if (time === prayerTimes.data.timings.Asr) callForPrayer('Asr');
-  else if (time === prayerTimes.data.timings.Maghrib) callForPrayer('Maghrib');
-  else if (time === prayerTimes.data.timings.Isha) callForPrayer('Isha');
+  let prayerName = '';
+  if (time === prayerTimes.data.timings.Fajr) prayerName = 'Fajr';
+  else if (time === prayerTimes.data.timings.Dhuhr) prayerName = 'Dhuhr';
+  else if (time === prayerTimes.data.timings.Asr) prayerName = 'Asr';
+  else if (time === prayerTimes.data.timings.Maghrib) prayerName = 'Maghrib';
+  else if (time === prayerTimes.data.timings.Isha) prayerName = 'Isha';
+
+  if (prayerName) {
+    callForPrayer(prayerName);
+    console.log(`It's ${prayerName} prayer time.`);
+  } else {
+    console.log('It\'s not prayer time.');
+  }
 }
 
 // Trigger an event to call for prayer
