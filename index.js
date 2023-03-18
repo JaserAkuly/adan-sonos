@@ -1,106 +1,87 @@
-const http = require("https");
+// Import required modules
+const https = require('https');
 const fs = require('fs');
-var schedule = require('node-schedule');
-const axios = require("axios");
+const schedule = require('node-schedule');
+const axios = require('axios');
 
-// schedule.scheduleJob('0 0 * * *', () => { downloadPrayerAPI() }) // run everyday at midnight
+// Schedule the job to run at midnight every day
+schedule.scheduleJob('0 0 * * *', downloadPrayerAPI);
 
-// schedule.scheduleJob('*/1 * * * *', () => { downloadPrayerAPI() }) // run everyday at minute
-schedule.scheduleJob('*/1 * * * *', () => { isItPrayerTime() }) // run everyday at minute
+// Schedule the function to run every minute on the minute
+schedule.scheduleJob('0 * * * * *', isItPrayerTime);
 
+// Schedule a job to play the 'fridaysurah' preset every Friday at 12 PM
+schedule.scheduleJob('0 12 * * 5', fridaySurah);
+
+/**
+ * Fetches daily prayer timings from an external API
+ */
 function downloadPrayerAPI() {
-    const options = {
-        "method": "GET",
-        "hostname": "api.aladhan.com",
-        "port": null,
-        "path": "/v1/timingsByCity?city=Dallas&country=US&tune=0,-20,0,4,1,4,0,5,0",
-    };
-    
-    const req = http.request(options, function (res) {
-        const chunks = [];
-    
-        res.on("data", function (chunk) {
-            chunks.push(chunk);
-        });
-    
-        res.on("end", function () {
-            const body = Buffer.concat(chunks);
-            console.log(body.toString());
-            saveAzaanTimes(body)
-            console.log(body)
-        });
-    });
-    
-    req.end();
-}
-
-function saveAzaanTimes(body) {
-    // parse json
-    var jsonObj = JSON.parse(body);
-
-    // stringify JSON Object
-    var jsonContent = JSON.stringify(jsonObj);
-
-    fs.writeFile("output.json", jsonContent, 'utf8', function (err) {
-        if (err) {
-            console.log("An error occured while writing JSON Object to File.");
-            return console.log(err);
-        }
-
-        console.log("JSON file has been saved.");
+  axios.get('https://api.aladhan.com/v1/timingsByCity?city=Dallas&method=15&country=US&tune=0,3,0,4,0,3,0,0,0')
+    .then(response => {
+      if (response.data) {
+        saveAzaanTimes(response.data);
+      } else {
+        console.error('No data received from API');
+      }
+    })
+    .catch(error => {
+      console.error('Error making request to API:', error);
     });
 }
 
+/**
+ * Saves daily prayer timings to a JSON file
+ * @param {Object} prayerTimes - The prayer times object to save
+ */
+function saveAzaanTimes(prayerTimes) {
+  fs.writeFile('output.json', JSON.stringify(prayerTimes), err => {
+    if (err) console.error('Error writing file:', err);
+    else console.log('Prayer times saved to file.');
+  });
+}
+
+/**
+ * Checks if it's time for prayer and calls for prayer if necessary
+ */
 function isItPrayerTime() {
-    //Obtain Output file Data
-    let rawdata = fs.readFileSync('output.json');
-    let todaysPrayerTimes = JSON.parse(rawdata);
+  // Read daily prayer timings from file
+  const prayerTimes = JSON.parse(fs.readFileSync('output.json'));
 
-    // What time is it right now
-    const today = new Date()
+  // Get the current time
+  const now = new Date();
+  const time = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
 
-    // current hours
-    let hours = today.getHours();
-    hours = ("0" + hours).slice(-2);
+  // Check if it's time for any of the five daily prayers
+  const timings = prayerTimes.data.timings;
+  const prayerName = Object.keys(timings).find(prayer => timings[prayer] === time);
 
-    // current minutes
-    let minutes = today.getMinutes();
-    minutes = ("0" + minutes).slice(-2);
-
-    // combine hours and minutes to match
-    let currentTime = hours + ":" + minutes
-    console.log(currentTime)
-
-    compareTimeToPrayer();
-    function compareTimeToPrayer() {
-        if (currentTime == todaysPrayerTimes.data.timings.Fajr) {
-            console.log("Its Fajr Time")
-            callForPrayer()
-        } else if (currentTime == todaysPrayerTimes.data.timings.Dhuhr) {
-            console.log("Its Dhuhr Time")
-            callForPrayer()
-        } else if (currentTime == todaysPrayerTimes.data.timings.Asr) {
-            console.log("Its Asr Time")
-            callForPrayer()
-        } else if (currentTime == todaysPrayerTimes.data.timings.Maghrib) {
-            console.log("Its Maghrib Time")
-            callForPrayer()
-        } else if (currentTime == todaysPrayerTimes.data.timings.Isha) {
-            console.log("Its Isha Time")
-            callForPrayer()
-        } else {
-            console.log("It's not Prayer Time Yet.")
-        }
-    
-    }
+  if (prayerName) {
+    callForPrayer(prayerName);
+  } else {
+    console.log(`It's not prayer time. Current time: ${time}`);
+  }
 }
 
-function callForPrayer() {
-    axios.get('http://localhost:5005/preset/example', {})
-        .then((res) => {
-            console.log(res)
-        })
-        .catch((error) => {
-            console.error(error)
-        })
+/**
+ * Triggers an event to call for prayer
+ * @param {string} prayer - The name of the prayer to call for
+ */
+function callForPrayer(prayer) {
+  console.log(`It's ${prayer} prayer time!`);
+
+  const presetName = prayer === 'Fajr' ? 'Fajar' : 'example';
+  axios.get(`http://localhost:5005/preset/${presetName}`)
+    .then(res => console.log(res.data))
+    .catch(err => console.error('Error calling for prayer:', err));
+}
+
+/**
+ * Triggers an event to play Friday Surah
+ */
+function fridaySurah() {
+  console.log(`It's Friday Surah`);
+  axios.get('http://localhost:5005/preset/FridayQuran')
+    .then(res => console.log(res.data))
+    .catch(err => console.error('Error calling for Friday Surah:', err));
 }

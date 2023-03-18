@@ -2,15 +2,15 @@
   "players": [
     {
       "roomName": "Office",
-      "volume": 20
+      "volume": 15
     },
     {
       "roomName": "Game Room",
-      "volume": 25
+      "volume": 15
     },
     {
       "roomName": "Living Room",
-      "volume": 20
+      "volume": 15
     }
   ],
   "playMode": {
@@ -18,5 +18,5 @@
     "crossfade": false
   },
   "pauseOthers": true,
-  "favorite": "Azan"
+  "playlist": "FridayQuran"
 }

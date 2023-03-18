@@ -3,28 +3,28 @@
     "status": "OK",
     "data": {
         "timings": {
-            "Fajr": "06:29",
-            "Sunrise": "07:36",
-            "Dhuhr": "13:36",
+            "Fajr": "14:54",
+            "Sunrise": "07:34",
+            "Dhuhr": "14:53",
             "Asr": "17:01",
-            "Sunset": "19:36",
-            "Maghrib": "19:36",
-            "Isha": "20:43",
-            "Imsak": "06:19",
-            "Midnight": "01:36",
+            "Sunset": "19:37",
+            "Maghrib": "19:40",
+            "Isha": "20:54",
+            "Imsak": "05:57",
+            "Midnight": "01:35",
             "Firstthird": "23:36",
-            "Lastthird": "03:36"
+            "Lastthird": "03:35"
         },
         "date": {
-            "readable": "16 Mar 2023",
-            "timestamp": "1678968000",
+            "readable": "18 Mar 2023",
+            "timestamp": "1679140800",
             "hijri": {
-                "date": "23-08-1444",
+                "date": "25-08-1444",
                 "format": "DD-MM-YYYY",
-                "day": "23",
+                "day": "25",
                 "weekday": {
-                    "en": "Al Khamees",
-                    "ar": "الخميس"
+                    "en": "Al Sabt",
+                    "ar": "السبت"
                 },
                 "month": {
                     "number": 8,
@@ -39,11 +39,11 @@
                 "holidays": []
             },
             "gregorian": {
-                "date": "16-03-2023",
+                "date": "18-03-2023",
                 "format": "DD-MM-YYYY",
-                "day": "16",
+                "day": "18",
                 "weekday": {
-                    "en": "Thursday"
+                    "en": "Saturday"
                 },
                 "month": {
                     "number": 3,
@@ -61,27 +61,22 @@
             "longitude": -96.784359,
             "timezone": "America/Chicago",
             "method": {
-                "id": 2,
-                "name": "Islamic Society of North America (ISNA)",
+                "id": 15,
+                "name": "Moonsighting Committee Worldwide (Moonsighting.com)",
                 "params": {
-                    "Fajr": 15,
-                    "Isha": 15
-                },
-                "location": {
-                    "latitude": 39.70421229999999,
-                    "longitude": -86.39943869999999
+                    "shafaq": "general"
                 }
             },
-            "latitudeAdjustmentMethod": "ANGLE_BASED",
+            "latitudeAdjustmentMethod": "NONE",
             "midnightMode": "STANDARD",
             "school": "STANDARD",
             "offset": {
                 "Imsak": 0,
-                "Fajr": 0,
+                "Fajr": "3",
                 "Sunrise": 0,
-                "Dhuhr": 0,
+                "Dhuhr": "4",
                 "Asr": 0,
-                "Maghrib": 0,
+                "Maghrib": "3",
                 "Sunset": 0,
                 "Isha": 0,
                 "Midnight": 0
