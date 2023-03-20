@@ -3,28 +3,28 @@
     "status": "OK",
     "data": {
         "timings": {
-            "Fajr": "14:54",
-            "Sunrise": "07:34",
-            "Dhuhr": "14:53",
-            "Asr": "17:01",
-            "Sunset": "19:37",
-            "Maghrib": "19:40",
-            "Isha": "20:54",
-            "Imsak": "05:57",
+            "Fajr": "06:07",
+            "Sunrise": "07:31",
+            "Dhuhr": "13:39",
+            "Asr": "17:02",
+            "Sunset": "19:39",
+            "Maghrib": "19:42",
+            "Isha": "20:56",
+            "Imsak": "05:54",
             "Midnight": "01:35",
             "Firstthird": "23:36",
-            "Lastthird": "03:35"
+            "Lastthird": "03:34"
         },
         "date": {
-            "readable": "18 Mar 2023",
-            "timestamp": "1679140800",
+            "readable": "20 Mar 2023",
+            "timestamp": "1679313600",
             "hijri": {
-                "date": "25-08-1444",
+                "date": "27-08-1444",
                 "format": "DD-MM-YYYY",
-                "day": "25",
+                "day": "27",
                 "weekday": {
-                    "en": "Al Sabt",
-                    "ar": "السبت"
+                    "en": "Al Athnayn",
+                    "ar": "الاثنين"
                 },
                 "month": {
                     "number": 8,
@@ -39,11 +39,11 @@
                 "holidays": []
             },
             "gregorian": {
-                "date": "18-03-2023",
+                "date": "20-03-2023",
                 "format": "DD-MM-YYYY",
-                "day": "18",
+                "day": "20",
                 "weekday": {
-                    "en": "Saturday"
+                    "en": "Monday"
                 },
                 "month": {
                     "number": 3,

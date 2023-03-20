@@ -54,7 +54,19 @@ function isItPrayerTime() {
 
   // Check if it's time for any of the five daily prayers
   const timings = prayerTimes.data.timings;
-  const prayerName = Object.keys(timings).find(prayer => timings[prayer] === time);
+  
+  // Define the primary 5 prayers
+  const primaryPrayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+
+  // Filter the timings object to only include the primary 5 prayers
+  const primaryPrayerTimings = Object.keys(timings)
+    .filter(prayer => primaryPrayers.includes(prayer))
+    .reduce((obj, prayer) => {
+      obj[prayer] = timings[prayer];
+      return obj;
+    }, {});
+
+  const prayerName = Object.keys(primaryPrayerTimings).find(prayer => primaryPrayerTimings[prayer] === time);
 
   if (prayerName) {
     callForPrayer(prayerName);
