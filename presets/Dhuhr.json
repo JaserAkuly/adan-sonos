@@ -2,15 +2,15 @@
   "players": [
     {
       "roomName": "Office",
-      "volume": 15
+      "volume": 1
     },
     {
       "roomName": "Game Room",
-      "volume": 25
+      "volume": 2
     },
     {
       "roomName": "Living Room",
-      "volume": 15
+      "volume": 1
     }
   ],
   "playMode": {

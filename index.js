@@ -89,6 +89,19 @@ function callForPrayer(prayer) {
 }
 
 /**
+ * Triggers an event to call for prayer
+ * @param {string} prayer - The name of the prayer to call for
+ */
+function callForPrayer(prayer) {
+  console.log(`It's ${prayer} prayer time!`);
+
+  const presetName = prayer === 'Dhuhr' ? 'Dhuhr' : 'example';
+  axios.get(`http://localhost:5005/preset/${presetName}`)
+    .then(res => console.log(res.data))
+    .catch(err => console.error('Error calling for prayer:', err));
+}
+
+/**
  * Triggers an event to play Friday Surah
  */
 function fridaySurah() {
